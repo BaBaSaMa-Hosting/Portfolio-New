@@ -1,5 +1,42 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "compilerOptions": {
+    "target": "ES5",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "outDir": "dist/",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@sections/*": [
+        "src/sections/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@style/*": [
+        "src/style/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@icons/*": [
+        "src/icons/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@options/*": [
+        "src/options/*"
+      ]
+    },
+    "jsx": "preserve"
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

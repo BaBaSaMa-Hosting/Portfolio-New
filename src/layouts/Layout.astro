@@ -1,22 +1,181 @@
+---
+import { slide, ClientRouter } from 'astro:transitions';
+
+const { title, description } = Astro.props;
+const link = Astro.request.url;
+const pathname = new URL(Astro.request.url).pathname;
+
+import { Image } from "astro:assets";
+import profileImage from '@assets/profile.png';
+---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<link rel="manifest" href="/manifest.json">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://kit.fontawesome.com/89ef39a558.css" crossorigin="anonymous">
+
+		<style lang="sass"/>
+		
+		<title>BaBaSaMa - {title}</title>
+	
+		<meta property="title" content={`BaBaSaMa - ${title}`}>
+		<meta property="description" content={description}>
+		<meta property="og:title" content={`BaBaSaMa - ${title}`}>
+		<meta property="og:description" content={description}>
+		<meta property="og:site_name" content=`BaBaSaMa`>
+		<meta property="og:type" content="website">
+		<meta property="og:website" content={link}>
+		<meta property="og:url" content={link}>
+		<meta property="og:locale" content="en_SG">
+		
+		<link rel="icon" href="profile.png">
+		<meta property="og:image" content="profile.png">
+		<meta property="og:image:width" content="1024">
+		<meta property="og:image:height" content="1024">
+		<meta property="twitter:card" content="BaBaSaMa">
+	
+		<ClientRouter/>
 	</head>
-	<body>
-		<slot />
+	<body class="bg-background relative font-montserrat text-white overflow-y-auto overflow-x-hidden">
+		<main class="w-screen min-h-[100dvh] flex flex-col items-start justify-between p-4">
+			<div class="w-full flex flex-row-reverse items-center justify-between">
+				<button class="bg-accent font-montserrat font-medium text-lg rounded-lg px-4 py-2">Need An App?</button>
+
+				<div id="back-up" class:list={["flex flex-col-reverse items-center justify-center gap-4 text-primary cursor-pointer", { hidden: pathname === "/"}]}>
+					back
+					<i id="back-up-icon" class="fa-thin fa-arrow-up-long fa-2x text-primary"></i>
+				</div>
+				<button class="bg-accent font-montserrat font-medium text-lg rounded-lg px-4 py-2 invisible">Need An App?</button>
+			</div>
+
+			<slot/>
+
+			<div class="w-full flex flex-row-reverse justify-between items-end">
+				<div id="profile-tab" class="relative flex flex-row-reverse items-center gap-6 p-2">
+					<div id="profile-background" class="profile-bg-pre"></div>
+
+					<Image src={profileImage} alt="Me" class="rounded-full border-white border-[2px] h-[50px] aspect-square w-auto"/>
+
+					<a id="instagram-icon" href="" target="_blank" class="opacity-0 duration-300 ease-in-out">
+						<img src="/social-icons/instagram.png" alt="instagram" class="w-[40px] aspect-square"/>
+					</a>
+
+					<a id="telegram-icon" href="" target="_blank" class="opacity-0 duration-300 ease-in-out">
+						<img src="/social-icons/telegram.png" alt="instagram" class="w-[40px] aspect-square"/>
+					</a>
+
+					<a id="envelope-icon" href="" target="_blank" class="opacity-0 duration-300 ease-in-out">
+						<i class="fa-regular fa-envelope fa-2x"></i>
+					</a>
+				</div>
+
+				<div id="more-down" class:list={["flex flex-col items-center justify-center gap-4 text-primary cursor-pointer", { hidden: pathname === "/merlion-news"}]}>
+					More
+					<i id="more-down-icon" class="fa-thin fa-arrow-down-long fa-2x text-primary"></i>
+				</div>
+
+				<div class="flex flex-row rounded-lg p-2 gap-6 invisible">
+					<Image src={profileImage} alt="Me" class="rounded-full border-white border-[2px] h-[50px] aspect-square w-auto"/>
+
+					<button class="">
+						<img src="/social-icons/instagram.png" alt="instagram" class="w-[40px] aspect-square"/>
+					</button>
+
+					<button class="">
+						<img src="/social-icons/telegram.png" alt="instagram" class="w-[40px] aspect-square"/>
+					</button>
+
+					<button class="">
+						<i class="fa-regular fa-envelope fa-2x"></i>
+					</button>
+				</div>
+			</div>
+		</main>
+
+		<script>
+        	import { gsap } from "gsap";
+
+			const more_down = document.getElementById('more-down') as HTMLDivElement;
+			const more_icon = document.getElementById('more-down-icon') as HTMLDivElement;
+			more_down.addEventListener('mouseover', () => {
+				more_icon.classList.add("fa-bounce");
+			});
+			more_down.addEventListener('mouseout', () => {
+				more_icon.classList.remove("fa-bounce");
+			});
+			
+			const back_up = document.getElementById('back-up') as HTMLDivElement;
+			const back_icon = document.getElementById('back-up-icon') as HTMLDivElement;
+			back_up.addEventListener('mouseover', () => {
+				back_icon.classList.add("fa-bounce");
+			});
+			back_up.addEventListener('mouseout', () => {
+				back_icon.classList.remove("fa-bounce");
+			});
+
+			const timeline_icon = gsap.timeline({ defaults: { duration: 0.2, opacity: 1 } });
+			timeline_icon.to("#instagram-icon", {});
+			timeline_icon.to("#telegram-icon", {});
+			timeline_icon.to("#envelope-icon", {});
+			timeline_icon.pause();
+
+			const timeline_bg = gsap.timeline();
+			timeline_bg.to("#profile-background", { className: "profile-bg-mid", duration: 0.2 });
+			timeline_bg.to("#profile-background", { className: "profile-bg-full", duration: 0.2 });
+			timeline_bg.pause();
+
+			const profile_tab = document.getElementById('profile-tab') as HTMLDivElement;
+			profile_tab.addEventListener('mouseenter', () => {
+				timeline_icon.play();
+				timeline_bg.play();
+			});
+			profile_tab.addEventListener('mouseleave', () => {
+				timeline_icon.reverse();
+				timeline_bg.reverse();
+			});
+
+			profile_tab.addEventListener('click', () => {
+				if (timeline_icon.reversed()) {
+					timeline_icon.play();
+					timeline_bg.play();
+				} else {
+					timeline_icon.reverse();
+					timeline_bg.reverse();
+				}
+			});
+		</script>
+
+		<style>
+			#profile-background {
+				position: absolute;
+				right: 0;
+				top: 0;
+				z-index: -10;
+				width: 0;
+				height: 100%;
+				border-radius: 12px;
+				background-color: #C3967E;
+				transition: 300ms ease-in-out;
+			}
+			.profile-bg-pre {}
+
+			.profile-bg-mid {
+				height: 100% !important;
+				width: 25% !important;
+			}
+
+			.profile-bg-full {
+				height: 100% !important;
+				width: 100% !important;
+			}
+		</style>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

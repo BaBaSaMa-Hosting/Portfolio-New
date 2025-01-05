@@ -1,11 +1,48 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '@layouts/Layout.astro';
 ---
+<Layout title="Home" description="Home Page">
+    <div class="w-full h-full flex flex-col justify-start items-center">
+        <strong id="main-text" class="font-montserrat font-semibold text-4xl text-text">Hello, I Make Software</strong>
+    </div>
 
-<Layout>
-	<Welcome />
+    <script>
+        import { navigate } from 'astro:transitions/client';
+        import { gsap } from "gsap";
+
+        document.addEventListener("astro:page-load", () => {
+            if (window.location.pathname !== "/") return;
+
+            const load_timeline = gsap.timeline({ defaults: { duration: 1 } });
+            const load = () => {
+                const screen_height = document.body.clientHeight;
+                load_timeline.from("#main-text", { y: -screen_height, duration: 1 });
+            }
+            load();
+
+            window.onscroll = (e) => {
+                if (load_timeline.progress() !== 1) return;
+                const scroll_height = document.body.scrollHeight;
+                const screen_height = window.innerHeight;
+                if ((window.scrollY + screen_height) > scroll_height) 
+                    nextScreen();
+            }
+
+            const nextScreen = () => {
+                const view_height = document.body.clientHeight;
+
+                gsap.timeline({ defaults: { duration: 1 } })
+                .to("#main-text", { y: -view_height }, 0)
+                
+                setTimeout(() => {
+                    navigate('/travelsg');
+                }, 500);
+            }
+
+			const more_down = document.getElementById('more-down') as HTMLDivElement;
+            more_down.addEventListener("click", (event) => {
+                nextScreen();
+            })
+        });
+    </script>
 </Layout>
