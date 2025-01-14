@@ -1,0 +1,252 @@
+---
+import Layout from '@layouts/layout.astro';
+---
+<Layout title="Enquiry" description="Enquiry Page" prev={false} next={false} help={false}>
+    <div class="w-full h-full flex flex-col justify-start items-center gap-4">
+        <strong class="font-montserrat font-semibold text-2xl text-center text-text">Pricing Guidelines</strong>
+        <p class="text-center font-ubuntu-mono text-text">Full ownership of the project upon completion & finalized payment.<br/>
+            3 Months short term hosting & maintenance of project which can be extended.<br/>
+            All operation running cost within these 3 Months is covered.<br/>
+        </p>
+
+        <div class="w-full grid grid-cols-2 gap-4 px-4">
+            <div class="w-full flex flex-col justify-start items-start">
+                <strong class="w-full mb-4">Your requirements</strong>
+                <ul class="w-full h-full border rounded-lg px-4 py-2">
+                    <li class="mb-4"> 
+                        <strong class="font-ubuntu-mono text-2xl">I need an...</strong>
+                        <div class="flex flex-row items-center gap-4">
+                            <div class="">
+                                <input type="checkbox" id="app-option" value="" class="hidden peer purchase-option platform" required="" data-message="App" data-price="1200">
+                                <label for="app-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-thin fa-mobile-button"></i>
+                                    <span>App</span>
+                                </label>
+                            </div>
+                            <div class="">
+                                <input type="checkbox" id="website-option" value="" class="hidden peer purchase-option platform" required="" data-message="Website" data-price="1400">
+                                <label for="website-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-browser"></i>
+                                    <span>Website</span>
+                                </label>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-4"> 
+                        <strong class="font-ubuntu-mono text-2xl website-option app-option hidden">With...</strong>
+                        <div class="flex flex-row flex-wrap items-center gap-4">
+                            <div class="website-option app-option hidden">
+                                <input type="checkbox" id="authentication-option" value="" class="hidden peer purchase-option functions" required="" data-message="authentication" data-price="500">
+                                <label for="authentication-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-user"></i>
+                                    <span>User Authentication</span>
+                                </label>
+                            </div>
+
+                            <div class="website-option app-option hidden">
+                                <input type="checkbox" id="file-option" value="" class="hidden peer purchase-option functions" required="" data-message="server file storage" data-price="800">
+                                <label for="file-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-file"></i>
+                                    <span>Server Image/File Storage</span>
+                                </label>
+                            </div>
+
+                            <div class="website-option app-option hidden">
+                                <input type="checkbox" id="iap-option" value="" class="hidden peer purchase-option functions" required="" data-message="in app purchase" data-price="500">
+                                <label for="iap-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-credit-card"></i>
+                                    <span>In App Purchase</span>
+                                </label>
+                            </div>
+
+                            <div class="website-option hidden">
+                                <input type="checkbox" id="admin-option" value="" class="hidden peer purchase-option functions" required="" data-message="admin portal" data-price="800">
+                                <label for="admin-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">
+                                    <i class="fa-duotone fa-solid fa-user-tie"></i>
+                                    <span>Admin Portal</span>
+                                </label>
+                            </div>
+
+                            <div class="website-option app-option hidden">
+                                <input type="checkbox" id="other-option" value="" class="hidden peer purchase-option" required="" data-price="0">
+                                <label for="other-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-secondary peer-checked:text-secondary cursor-pointer duration-300 ease-in-out">
+                                    <i class="fa-duotone fa-thin fa-circle-plus"></i>
+                                    <span>Others</span>
+                                </label>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-4"> 
+                        <strong class="font-ubuntu-mono text-2xl website-option app-option hidden">I need it...</strong>
+                        <div class="flex flex-row flex-wrap items-center gap-4">
+                            <div class="website-option app-option hidden">
+                                <input type="radio" id="fast-option" name="speed" value="" class="hidden peer purchase-option speed" required="" data-message="in 3 months time" data-price="0" checked>
+                                <label for="fast-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-calendar-range"></i>
+                                    <span>in 3 Months</span>
+                                </label>
+                            </div>
+
+                            <div class="website-option app-option hidden">
+                                <input type="radio" id="faster-option" name="speed" value="" class="hidden peer purchase-option speed" required="" data-message="in 1 month time" data-price="800">
+                                <label for="faster-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-calendar-days"></i>
+                                    <span>in 1 Month</span>
+                                </label>
+                            </div>
+
+                            <div class="website-option app-option hidden">
+                                <input type="radio" id="fastest-option" name="speed" value="" class="hidden peer purchase-option speed" required="" data-message="in 2 weeks" data-price="1600">
+                                <label for="fastest-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                    <i class="fa-duotone fa-solid fa-calendar-week"></i>
+                                    <span>in 2 Weeks</span>
+                                </label>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <textarea name="other-option-requirements" id="other-option-requirements" class="w-full min-h-24 max-h-32 bg-transparent rounded-lg border border-secondary text-text px-4 py-2 hidden" placeholder="Other specific requirements..."></textarea>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="estimate" class="w-full flex flex-col items-center justify-center bg-secondary rounded-lg gap-2 hidden">
+                <strong class="text-white font-montserrat font-semibold">Estimate about</strong>
+                <strong id="price" class="text-white font-roboto-condensed font-bold text-6xl">$0 SGD</strong>
+                <p>discuss further via</p>
+
+                <div class="w-full flex flex-row items-center justify-center gap-4">
+                    <button id="telegram-link" class="group flex flex-row items-center gap-2 cursor-pointer">
+                        <img src="/social-icons/telegram.png" alt="instagram" class="w-[30px] aspect-square"/>
+                        <span class="font-ubuntu-mono group-hover:underline text-xl">@BaBaSaMa</span>
+                    </button>
+                    <button id="email-link" class="group flex flex-row items-center gap-2 cursor-pointer">
+                        <i class="fa-regular fa-envelope fa-2x"></i>
+                        <span class="font-ubuntu-mono group-hover:underline text-xl">long@babasama.com</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const telegram_host = "https://t.me/babasama?";
+        const email_host = "mailto:long@babasama.com?";
+
+        document.addEventListener("astro:page-load", () => {
+            if (window.location.pathname !== "/help") return;
+
+            const estimate_showbox = document.getElementById("estimate") as HTMLDivElement;
+            const app_option = document.getElementById("app-option") as HTMLInputElement;
+            const website_option = document.getElementById("website-option") as HTMLInputElement;
+            app_option.addEventListener("change", () => {
+                estimate_showbox.classList.add("hidden");
+                if (app_option.checked || website_option.checked) estimate_showbox.classList.remove("hidden");
+
+                const options = document.querySelectorAll(".app-option") as NodeListOf<HTMLDivElement>;
+                options.forEach((element) => {
+                    if (app_option.checked) {
+                        element.classList.remove("hidden")
+                        return;
+                    }
+
+                    if (!(website_option.checked && element.classList.contains("website-option"))) {
+                        element.classList.add("hidden");
+                    }
+                });
+            });
+
+            website_option.addEventListener("change", () => {
+                estimate_showbox.classList.add("hidden");
+                if (app_option.checked || website_option.checked) estimate_showbox.classList.remove("hidden");
+
+                const options = document.querySelectorAll(".website-option") as NodeListOf<HTMLDivElement>;
+                options.forEach((element) => {
+                    if (website_option.checked) {
+                        element.classList.remove("hidden")
+                        return;
+                    }
+
+                    if (!(app_option.checked && element.classList.contains("app-option"))) {
+                        element.classList.add("hidden");
+                    }
+                });
+            });
+
+            const other_option = document.getElementById("other-option") as HTMLInputElement;
+            other_option.addEventListener("change", () => {
+                const textbox = document.getElementById("other-option-requirements") as HTMLTextAreaElement;
+                textbox.classList.add("hidden")
+                if (other_option.checked) textbox.classList.remove("hidden");
+            });
+
+            const price_display = document.getElementById("price") as HTMLSpanElement;
+            const purchase_options = document.querySelectorAll(".purchase-option") as NodeListOf<HTMLInputElement>;
+            purchase_options.forEach((option) => {
+                option.addEventListener("change", () => {
+                    let price = 0;
+                    const all_checked_purchase_selection = document.querySelectorAll(".purchase-option:checked") as NodeListOf<HTMLInputElement>;
+                    for (const selection of all_checked_purchase_selection) {
+                        price += +(selection.dataset.price as string)
+                    }
+
+                    price_display.innerText = `$${price} SGD`;
+                });
+            });
+
+            const telegram_link = document.getElementById("telegram-link") as HTMLLinkElement;
+            telegram_link.addEventListener("click", () => {
+                let message = "I need an ";
+                let message_item: string[] = [];
+                const platform_checkbox = document.querySelectorAll(".purchase-option.platform:checked") as NodeListOf<HTMLInputElement>;
+                for (const checkbox of platform_checkbox) {
+                    message_item.push(checkbox.dataset.message as string)
+                }
+
+                message += `${message_item.join(" & ")}, with functionalities of `
+                message_item = [];
+                const function_checkbox = document.querySelectorAll(".purchase-option.functions:checked") as NodeListOf<HTMLInputElement>;
+                for (const checkbox of function_checkbox) {
+                    message_item.push(checkbox.dataset.message as string)
+                }
+
+                message += `${message_item.join(", ")} and within `
+                const speed_checkbox = document.querySelector(".purchase-option.speed:checked") as HTMLInputElement; 
+                message += `${speed_checkbox.dataset.message}.`;
+
+                const other_requirements = document.getElementById("other-option-requirements") as HTMLTextAreaElement;
+                message += ` other requirements: ${other_requirements.value}`;
+
+                window.open((`${telegram_host}text=${encodeURI(message)}`), "_blank")?.focus();
+            });
+
+            const email_link = document.getElementById("email-link") as HTMLLinkElement;
+            email_link.addEventListener("click", () => {
+                let message = "I need an ";
+                let message_item: string[] = [];
+                const platform_checkbox = document.querySelectorAll(".purchase-option.platform:checked") as NodeListOf<HTMLInputElement>;
+                for (const checkbox of platform_checkbox) {
+                    message_item.push(checkbox.dataset.message as string)
+                }
+
+                message += `${message_item.join(" & ")}, with functionalities of `
+                message_item = [];
+                const function_checkbox = document.querySelectorAll(".purchase-option.functions:checked") as NodeListOf<HTMLInputElement>;
+                for (const checkbox of function_checkbox) {
+                    message_item.push(checkbox.dataset.message as string)
+                }
+
+                message += `${message_item.join(", ")} and within `
+                const speed_checkbox = document.querySelector(".purchase-option.speed:checked") as HTMLInputElement; 
+                message += `${speed_checkbox.dataset.message}.`;
+
+                const other_requirements = document.getElementById("other-option-requirements") as HTMLTextAreaElement;
+                if (other_requirements.value !== "") {
+                    message += ` other requirements: ${other_requirements.value}`;
+                }
+
+                window.open((`${email_host}subject=${encodeURI("Enquiry from your website")}&body=${encodeURI(message)}`), "_blank")?.focus();
+            });
+        });
+    </script>
+</Layout>

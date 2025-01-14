@@ -1,0 +1,142 @@
+---
+import Layout from '@layouts/layout.astro';
+import AppIcon from '@components/app-icon.astro';
+import { apps } from '@classes/app-list';
+
+interface Props {
+    title: string,
+    description: string,
+}
+const { title, description } = Astro.props
+
+const pathname = Astro.url.pathname;
+let app = apps.find((app) => app.page === pathname);
+let app_index = apps.findIndex((app) => app.page === pathname);
+let next: boolean = (app_index !== (apps.length - 1));
+
+if (!app) return Astro.redirect("/404");
+---
+<Layout title={title} description={description} prev={true} next={next}>
+    <div class="w-full h-full flex flex-col md:grid md:grid-cols-3 gap-4">
+        <AppIcon app_name={app.name} app_icon_location={app.icon_location} app_link={app.link} app_description={app.description} display_type={app.display_types}/>
+
+        <div id="content-body" class="relative w-full h-full flex flex-col col-span-2">
+            <slot/>
+        </div>
+    </div>
+
+    <script>
+        import { display_selection } from "@src/store";
+        import { navigate } from 'astro:transitions/client';
+        import { gsap } from "gsap";
+
+        import { apps } from '@classes/app-list';
+
+        document.addEventListener("astro:page-load", () => {
+            let next_screen = "/";
+            let previous_screen = "/";
+
+            const assignContentMaxHeight = () => {
+                const window_height = window.innerHeight;
+                const header_height = (document.getElementById("header") as HTMLDivElement).clientHeight;
+                const footer_height = (document.getElementById("footer") as HTMLDivElement).clientHeight;
+                
+                const main = document.getElementById("content-body") as HTMLDivElement;
+                main.style.maxHeight = `${(window_height - header_height - footer_height)}px`;
+            }
+            assignContentMaxHeight();
+            window.onresize = () => {
+                assignContentMaxHeight();
+            }
+
+            const display_images = document.querySelectorAll(".display-image") as NodeListOf<HTMLDivElement>;
+            display_selection.subscribe((v, o) => {
+                for (const image of display_images) {
+                    image.classList.add("hidden");
+
+                    if (image.dataset.display === v) {
+                        image.classList.remove("hidden");
+                    }
+                }
+            });
+
+            const load_timeline = gsap.timeline({ defaults: { duration: 2 } });
+            const load = () => {
+                var screen_height = document.body.clientHeight;
+                var screen_width = document.body.clientWidth;
+
+                load_timeline.from("#icon_name", { y: screen_height }, 0);
+                load_timeline.from("#content-body", { x: screen_width }, 0);
+
+                apps.forEach((app, index) => {
+                    if (app.page === window.location.pathname) {
+                        if (index !== 0) previous_screen = apps[index - 1].page;
+                        if (index !== (apps.length - 1)) next_screen = apps[index + 1].page;
+                    }
+                });
+            }
+            load();
+
+            window.onscroll = () => {
+                if (load_timeline.progress() !== 1) return;
+                const scroll_height = document.body.scrollHeight;
+                const screen_height = window.innerHeight;
+                if ((window.scrollY + screen_height) > scroll_height + 20) 
+                    nextScreen();
+                else if (window.scrollY < -20)
+                    previousScreen();
+            }
+
+            let screen_triggered = false;
+            const nextScreen = () => {
+                if (screen_triggered) return;
+
+                if (next_screen === "/" && !confirm("Return back up?")) return;
+
+                screen_triggered = true;
+                var screen_height = document.body.clientHeight;
+                var screen_width = document.body.clientWidth;
+                
+                gsap.timeline({ defaults: { duration: 1 } })
+                .to("#icon_name", { y: screen_height }, 0)
+                .to("#content-body", { x: screen_width }, 0)
+                
+                setTimeout(() => {
+                    navigate(next_screen);
+                }, 500);
+            }
+
+            const previousScreen = () => {
+                if (screen_triggered) return;
+
+                screen_triggered = true;
+                var screen_height = document.body.clientHeight;
+                var screen_width = document.body.clientWidth;
+
+                gsap.timeline({ defaults: { duration: 1 } })
+                .to("#icon_name", { y: screen_height }, 0)
+                .to("#content-body", { x: screen_width }, 0)
+                
+                setTimeout(() => {
+                    navigate(previous_screen);
+                }, 500);
+            }
+
+			const more_down = document.getElementById('more-down') as HTMLDivElement | null;
+            more_down?.addEventListener("click", (event) => {
+                nextScreen();
+            });
+
+            const back_up = document.getElementById('back-up') as HTMLDivElement | null;
+            back_up?.addEventListener("click", (event) => {
+                previousScreen();
+            });
+        });
+    </script>
+
+    <style>
+        .inner-shadow {
+            box-shadow: inset 0 -10px 10px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</Layout>

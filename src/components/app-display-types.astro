@@ -1,0 +1,91 @@
+---
+import type { DisplayType } from '@classes/display-type'
+
+interface Props {
+    display_type: DisplayType
+}
+
+const { display_type } = Astro.props;
+---
+<div class="flex flex-row md:flex-col items-center justify-center gap-4">
+    {
+        display_type.watch &&
+        <div>
+            <input type="radio" name="display-style" id="watch" class="hidden peer display-style"/>
+            <label for="watch" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+                <i class="fa-duotone fa-thin fa-watch-apple fa-3x"></i>
+                <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
+            </label>
+        </div>
+    }
+
+    {
+        display_type.mobile &&
+        <div>
+            <input type="radio" name="display-style" id="mobile" class="hidden peer display-style"/>
+            <label for="mobile" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+                <i class="fa-duotone fa-thin fa-mobile-button fa-3x"></i>
+                <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
+            </label>
+        </div>
+    }
+
+    {
+        display_type.tablet && 
+        <div>
+            <input type="radio" name="display-style" id="tablet" class="hidden peer display-style"/>
+            <label for="tablet" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+                <i class="fa-duotone fa-thin fa-tablet fa-3x"></i>
+                <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
+            </label>
+        </div>
+    }
+    
+    {
+        display_type.desktop && 
+        <div>
+            <input type="radio" name="display-style" id="desktop" class="hidden peer display-style"/>
+            <label for="desktop" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+                <i class="fa-duotone fa-thin fa-desktop fa-3x"></i>
+                <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
+            </label>
+        </div>
+    }
+    
+    {
+        display_type.web && 
+        <div>
+            <input type="radio" name="display-style" id="website" class="hidden peer display-style"/>
+            <label for="website" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+                <i class="fa-duotone fa-thin fa-browser fa-3x"></i>
+                <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
+            </label>
+        </div>
+    }
+
+    {
+        display_type.widget &&
+        <div>
+            <input type="radio" name="display-style" id="widget" class="hidden peer display-style"/>
+            <label for="widget" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+                <i class="fa-duotone fa-thin fa-grid-2 fa-3x"></i>
+                <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
+            </label>
+        </div>
+    }
+</div>
+
+<script>
+    import { display_selection } from "@src/store";
+
+    document.addEventListener("astro:page-load", () => {
+        const all_display_types = document.querySelectorAll(".display-style") as NodeListOf<HTMLInputElement>;
+        all_display_types.forEach((type, index) => {
+            type.addEventListener("click", () => {
+                display_selection.set(type.id);
+            });
+
+            if (index === 0) type.click();
+        });
+    });
+</script>

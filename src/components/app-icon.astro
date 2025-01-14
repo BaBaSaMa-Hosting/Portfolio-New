@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets'
+
+import { type DisplayType } from "@classes/display-type.ts";
+import AppDisplayTypes from '@components/app-display-types.astro';
+
+interface Props {
+    app_name: string,
+    app_icon_location: ImageMetadata,
+    app_link: string,
+    app_description: string,
+    display_type: DisplayType,
+}
+
+const { app_name, app_icon_location, app_link, app_description, display_type } = Astro.props
+---
+<div id="icon_name"class="w-full h-full flex flex-col md:flex-row items-center justify-center gap-4">
+    <div class="w-full h-full flex flex-col items-center justify-center gap-4 md:gap-8">
+        <Image src={app_icon_location} alt={app_name} class="w-[120px] h-[120px] rounded-lg border-white border-4 aspect-square object-contain" />
+        <strong class="font-roboto-condensed font-medium text-3xl text-text">{app_name}</strong>
+        <p class="font-ubuntu-mono font-normal text-text text-lg text-center">{app_description}</p>
+
+        <a href={app_link} target="_blank">
+            <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
+        </a>
+    </div>
+    <AppDisplayTypes display_type={display_type}/>
+</div>

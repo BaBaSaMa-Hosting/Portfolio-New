@@ -1,104 +1,26 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import Content from "@layouts/content.astro";
+
 import { Image } from 'astro:assets';
-
-import Merlion_News_Icon from '@assets/app-icons/merlion-news.png';
-import Merlion_News_1 from '@assets/merlion-news/View.png';
-import Merlion_News_2 from '@assets/merlion-news/Read.png';
-import Merlion_News_3 from '@assets/merlion-news/Customise.png';
+import Merlion_News_iOS from '@assets/merlion-news/iOS.png';
+import Merlion_News_iPadOS from '@assets/merlion-news/iPadOS.png';
+import Merlion_News_macOS from '@assets/merlion-news/macOS.png';
 ---
-<Layout title="Merlion News" description="Merlion News Page">
-    <div class="w-full h-full flex flex-row justify-center items-center gap-8">
-        <div id="icon_name" class="flex flex-col items-center gap-8">
-            <Image src={Merlion_News_Icon } alt="Merlion News" class="w-[120px] h-[120px] rounded-lg border-white border-4 aspect-square object-contain" />
-            <strong class="font-roboto-condensed font-medium text-3xl text-text">Merlion News</strong>
+<Content title="Merlion News" description="Merlion News Page">
+    <div class="h-full display-image hidden" data-display="mobile">
+        <Image src={Merlion_News_iOS} alt="Merlion News iOS" class="h-full aspect-auto object-contain inner-shadow"/>
+    </div>
 
-            <a href="#" target="_blank" >
-                <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
-            </a>
-
-            <a href="#" target="_blank" >
-                <img src="/social-icons/mac-app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
-            </a>
-        </div>
-
-        <div id="design-functions" class="max-w-[60%] w-full flex flex-col items-start justify-start">
-            <ul class="list-disc list-inside">
-                <li class="font-ubuntu-mono text-2xl">Designs & Functions</li>
-            </ul>
-
-            <div class="w-full grid grid-cols-3 gap-4">
-                <Image src={Merlion_News_1} alt="Merlion News" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                <Image src={Merlion_News_2} alt="Merlion News" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                <Image src={Merlion_News_3} alt="Merlion News" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-            </div>
-        </div>
+    <div class="h-full display-image hidden" data-display="tablet">
+        <Image src={Merlion_News_iPadOS} alt="Merlion News iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
+    </div>
+    
+    <div class="h-full display-image hidden" data-display="desktop">
+        <Image src={Merlion_News_macOS} alt="Merlion News macOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <script>
-        import { navigate } from 'astro:transitions/client';
-        import { gsap } from "gsap";
-
         document.addEventListener("astro:page-load", () => {
-            if (!window.location.toString().includes("/merlion-news")) return;
-
-            const load_timeline = gsap.timeline({ defaults: { duration: 2 } });
-            const load = () => {
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                load_timeline.from("#icon_name", { y: screen_height }, 0);
-                load_timeline.from("#design-functions", { x: screen_width }, 0);
-            }
-            load();
-
-            window.onscroll = (e) => {
-                if (load_timeline.progress() !== 1) return;
-                if (window.scrollY < 0)
-                    previousScreen();
-            }
-
-            let screen_triggered = false;
-            const nextScreen = () => {
-                if (screen_triggered) return;
-
-                screen_triggered = true;
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                gsap.timeline({ defaults: { duration: 1 } })
-                .to("#icon_name", { y: screen_height }, 0)
-                .to("#design-functions", { x: screen_width }, 0)
-                
-                setTimeout(() => {
-                    navigate('/twsj');
-                }, 500);
-            }
-
-            const previousScreen = () => {
-                if (screen_triggered) return;
-
-                screen_triggered = true;
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                gsap.to("#icon_name", { y: screen_height, duration: 1 });
-                gsap.to("#design-functions", { x: screen_width, duration: 1 });
-
-                setTimeout(() => {
-                    navigate('/twsj');
-                }, 300);
-            }
-
-			const more_down = document.getElementById('more-down') as HTMLDivElement;
-            more_down.addEventListener("click", (event) => {
-                nextScreen();
-            });
-
-            const back_up = document.getElementById('back-up') as HTMLDivElement;
-            back_up.addEventListener("click", (event) => {
-                previousScreen();
-            });
         });
     </script>
-</Layout>
+</Content>

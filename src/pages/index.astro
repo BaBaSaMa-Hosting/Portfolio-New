@@ -1,9 +1,9 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import Layout from '@layouts/layout.astro';
 ---
-<Layout title="Home" description="Home Page">
+<Layout title="Home" description="Home Page" prev={false}>
     <div class="w-full h-full flex flex-col justify-start items-center">
-        <strong id="main-text" class="font-montserrat font-semibold text-4xl text-text">Hello, I Make Software</strong>
+        <strong id="main-text" class="font-montserrat font-semibold text-4xl text-text text-center">Hello, I Make Software</strong>
     </div>
 
     <script>
@@ -20,7 +20,7 @@ import Layout from '@layouts/Layout.astro';
             }
             load();
 
-            window.onscroll = (e) => {
+            window.onscroll = () => {
                 if (load_timeline.progress() !== 1) return;
                 const scroll_height = document.body.scrollHeight;
                 const screen_height = window.innerHeight;

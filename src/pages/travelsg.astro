@@ -1,163 +1,33 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import Content from "@layouts/content.astro";
+
+import TravelSG_watchOS_design from '@assets/travelsg/watchOS.png';
+import TravelSG_iOS_design from '@assets/travelsg/iOS.png';
+import TravelSG_iPadOS_design from '@assets/travelsg/iPadOS.png';
+import TravelSG_widget_design from '@assets/travelsg/widgets.png';
+
 import { Image } from 'astro:assets';
-
-import TravelSG_Icon from '@assets/app-icons/travelsg.png';
-import TravelSG_1 from '@assets/travelsg/Navigate.png';
-import TravelSG_2 from '@assets/travelsg/View.png';
-import TravelSG_3 from '@assets/travelsg/LiveActivity.png';
-
-import TravelSG_iPad_1 from '@assets/travelsg/ipados/View.png';
-import TravelSG_watch_1 from '@assets/travelsg/watchos/View.png';
-import TravelSG_watch_2 from '@assets/travelsg/watchos/Personalise.png';
-
-/*
-*/
 ---
-<Layout title="TravelSG" description="TravelSG Page">
-    <div class="w-full h-full flex flex-row justify-center items-center gap-8">
-        <div id="icon_name" class="flex flex-col items-center gap-8">
-            <Image src={TravelSG_Icon} alt="TravelSG" class="w-[120px] h-[120px] rounded-lg border-white border-4 aspect-square object-contain" />
-            <strong class="font-roboto-condensed font-medium text-3xl text-text">TravelSG</strong>
+<Content title="TravelSG" description="TravelSG Page">
+    <div class="h-full display-image hidden" data-display="watch">
+        <Image src={TravelSG_watchOS_design} alt="TravelSG watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
+    </div>
 
-            <a href="#" target="_blank" >
-                <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
-            </a>
-        </div>
+    <div class="h-full display-image hidden" data-display="mobile">
+        <Image src={TravelSG_iOS_design} alt="TravelSG iOS" class="h-full aspect-auto object-contain inner-shadow"/>
+    </div>
 
-        <div id="content-body" class="relative max-w-[60dvw] overflow-x-clip w-full h-full flex flex-row">
-            <div id="design-functions" class="min-w-[60dvw] w-full h-full flex flex-row items-center justify-center gap-4">
-                <div class="w-full h-full flex flex-col items-start justify-start">
-                    <div class="w-full flex flex-row items-center justify-start">
-                        <ul class="w-full list-disc list-inside">
-                            <li class="font-ubuntu-mono text-2xl">Designs & Functions</li>
-                        </ul>
+    <div class="h-full display-image hidden" data-display="tablet">
+        <Image src={TravelSG_iPadOS_design} alt="TravelSG iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
+    </div>
 
-                        <div id="view-right-other-design" class="flex flex-row items-center justify-center text-primary cursor-pointer gap-2">
-                            <span>iPadOS & watchOS Designs</span>
-                            <i class="fa-light fa-chevron-right fa-2x"></i>
-                        </div>
-                    </div>
-
-                    <div class="w-full grid grid-cols-3 gap-4">
-                        <Image src={TravelSG_1} alt="TravelSG" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                        <Image src={TravelSG_2} alt="TravelSG" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                        <Image src={TravelSG_3} alt="TravelSG" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                    </div>
-                </div>
-            </div>
-            <div id="other-platforms" class="min-w-[60dvw] w-full h-full flex flex-row items-center justify-center gap-4">
-                <div class="w-full h-full flex flex-col items-start justify-start">
-                   <div class="w-full flex flex-row items-center justify-start gap-4">
-                        <div id="view-design-functions" class="flex flex-row items-center justify-center text-primary cursor-pointer gap-2">
-                            <i class="fa-light fa-chevron-left fa-2x"></i>
-                            <span>Designs & Functions</span>
-                        </div>
-
-                        <ul class="w-full list-disc list-inside">
-                            <li class="font-ubuntu-mono text-2xl">iPadOS & watchOS Designs</li>
-                        </ul>
-                   </div>
-
-                    <div class="w-full grid grid-cols-3 gap-4">
-                        <Image src={TravelSG_iPad_1} alt="TravelSG" class="w-[80%] mx-auto grid-cols-subgrid col-span-2 rounded-lg border-white border-4 aspect-auto object-contain" />
-                        <div class="h-full flex flex-col gap-4">
-                            <Image src={TravelSG_watch_1} alt="TravelSG" class="w-[80%] rounded-lg border-white border-4 aspect-auto object-contain" />
-                            <Image src={TravelSG_watch_2} alt="TravelSG" class="w-[80%] rounded-lg border-white border-4 aspect-auto object-contain" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="h-full display-image hidden" data-display="widget">
+        <Image src={TravelSG_widget_design} alt="TravelSG widget" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <script>
-        import { navigate } from 'astro:transitions/client';
-        import { gsap } from "gsap";
-
         document.addEventListener("astro:page-load", () => {
-            if (window.location.pathname !== "/travelsg") return;
-
-            const more_design = document.getElementById('view-right-other-design') as HTMLDivElement;
-            const content_body = document.getElementById('content-body') as HTMLDivElement;
-            more_design.addEventListener("click", (event) => {
-                const timeline = gsap.timeline();
-
-                timeline.to("#design-functions", { x: -content_body.clientWidth, duration: 1 });
-                timeline.to("#other-platforms", { x: -content_body.clientWidth, duration: 1}, 0.2);
-            });
-
-            const view_design = document.getElementById('view-design-functions') as HTMLDivElement;
-            view_design.addEventListener("click", (event) => {
-                const timeline = gsap.timeline();
-
-                timeline.to("#other-platforms", { x: 0, duration: 1});
-                timeline.to("#design-functions", { x: 0, duration: 1 }, 0.2);
-            });
-
-            const load_timeline = gsap.timeline({ defaults: { duration: 2 } });
-            const load = () => {
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                load_timeline.from("#icon_name", { y: screen_height }, 0);
-                load_timeline.from("#content-body", { x: screen_width }, 0);
-            }
-            load();
-
-            window.onscroll = (e) => {
-                if (load_timeline.progress() !== 1) return;
-                const scroll_height = document.body.scrollHeight;
-                const screen_height = window.innerHeight;
-                if ((window.scrollY + screen_height) > scroll_height) 
-                    nextScreen();
-                else if (window.scrollY < 0)
-                    previousScreen();
-            }
-
-            let screen_triggered = false;
-
-            const nextScreen = () => {
-                if (screen_triggered) return;
-
-                screen_triggered = true;
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-                
-                gsap.timeline({ defaults: { duration: 1 } })
-                .to("#icon_name", { y: screen_height }, 0)
-                .to("#content-body", { x: screen_width }, 0)
-                
-                setTimeout(() => {
-                    navigate('/twsj');
-                }, 500);
-            }
-
-            const previousScreen = () => {
-                if (screen_triggered) return;
-
-                screen_triggered = true;
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                gsap.timeline({ defaults: { duration: 1 } })
-                .to("#icon_name", { y: screen_height }, 0)
-                .to("#content-body", { x: screen_width }, 0)
-                
-                setTimeout(() => {
-                    navigate('/');
-                }, 500);
-            }
-
-			const more_down = document.getElementById('more-down') as HTMLDivElement;
-            more_down.addEventListener("click", (event) => {
-                nextScreen();
-            });
-
-            const back_up = document.getElementById('back-up') as HTMLDivElement;
-            back_up.addEventListener("click", (event) => {
-                previousScreen();
-            });
+            
         });
     </script>
-</Layout>
+</Content>

@@ -1,106 +1,17 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import Content from "@layouts/content.astro";
+
 import { Image } from 'astro:assets';
-
-import TWSJ_Icon from '@assets/app-icons/twsj.png';
-import TWSJ_1 from '@assets/twsj/View.png';
-import TWSJ_2 from '@assets/twsj/Read.png';
-import TWSJ_3 from '@assets/twsj/Customise.png';
+import TWSJ_design from '@assets/twsj/watchOS.png';
 ---
-<Layout title="The Watch Street Journal" description="The Watch Street Journal Page">
-    <div class="w-full h-full flex flex-row justify-center items-center gap-8">
-        <div id="icon_name" class="flex flex-col items-center gap-8">
-            <Image src={TWSJ_Icon } alt="TWSJ" class="w-[120px] h-[120px] rounded-lg border-white border-4 aspect-square object-contain" />
-            <strong class="font-roboto-condensed font-medium text-3xl text-text">The Watch Street Journal</strong>
-
-            <a href="#" target="_blank" >
-                <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
-            </a>
-        </div>
-
-        <div id="design-functions" class="max-w-[60%] w-full flex flex-col items-start justify-start">
-            <ul class="list-disc list-inside">
-                <li class="font-ubuntu-mono text-2xl">Designs & Functions</li>
-            </ul>
-
-            <div class="w-full grid grid-cols-3 gap-4">
-                <Image src={TWSJ_1} alt="TWSJ" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                <Image src={TWSJ_2} alt="TWSJ" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-                <Image src={TWSJ_3} alt="TWSJ" class="w-full rounded-lg border-white border-4 aspect-auto object-contain" />
-            </div>
-        </div>
+<Content title="The Watch Street Journal" description="The Watch Street Journal Page">
+    <div class="h-full display-image hidden" data-display="watch">
+        <Image src={TWSJ_design} alt="TWSJ watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <script>
-        import { navigate } from 'astro:transitions/client';
-        import { gsap } from "gsap";
-
         document.addEventListener("astro:page-load", () => {
-            if (!window.location.toString().includes("/twsj")) return;
-
-            const load_timeline = gsap.timeline({ defaults: { duration: 2 } });
-            const load = () => {
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                load_timeline.from("#icon_name", { y: screen_height }, 0);
-                load_timeline.from("#design-functions", { x: screen_width }, 0);
-            }
-            load();
-
-            window.onscroll = (e) => {
-                if (load_timeline.progress() !== 1) return;
-                const scroll_height = document.body.scrollHeight;
-                const screen_height = window.innerHeight;
-                if ((window.scrollY + screen_height) > scroll_height) 
-                    nextScreen();
-                else if (window.scrollY < 0)
-                    previousScreen();
-            }
-
-            let screen_triggered = false;
-
-            const nextScreen = () => {
-                if (screen_triggered) return;
-
-                screen_triggered = true;
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                gsap.timeline({ defaults: { duration: 1 } })
-                .to("#icon_name", { y: screen_height }, 0)
-                .to("#design-functions", { x: screen_width }, 0)
-                
-                setTimeout(() => {
-                    navigate('/merlion-news');
-                }, 500);
-            }
-
-            const previousScreen = () => {
-                if (screen_triggered) return;
-
-                screen_triggered = true;
-                var screen_height = document.body.clientHeight;
-                var screen_width = document.body.clientWidth;
-
-                gsap.timeline({ defaults: { duration: 1 } })
-                .to("#icon_name", { y: screen_height }, 0)
-                .to("#design-functions", { x: screen_width }, 0)
-               
-                setTimeout(() => {
-                    navigate('/travelsg');
-                }, 500);
-            }
-
-			const more_down = document.getElementById('more-down') as HTMLDivElement;
-            more_down.addEventListener("click", (event) => {
-                nextScreen();
-            });
-
-            const back_up = document.getElementById('back-up') as HTMLDivElement;
-            back_up.addEventListener("click", (event) => {
-                previousScreen();
-            });
+            
         });
     </script>
-</Layout>
+</Content>

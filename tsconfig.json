@@ -11,14 +11,8 @@
       "@components/*": [
         "src/components/*"
       ],
-      "@sections/*": [
-        "src/sections/*"
-      ],
       "@layouts/*": [
         "src/layouts/*"
-      ],
-      "@style/*": [
-        "src/style/*"
       ],
       "@assets/*": [
         "src/assets/*"
@@ -26,12 +20,12 @@
       "@icons/*": [
         "src/icons/*"
       ],
+      "@classes/*": [
+        "src/classes/*"
+      ],
       "@src/*": [
         "src/*"
       ],
-      "@options/*": [
-        "src/options/*"
-      ]
     },
     "jsx": "preserve"
   },
