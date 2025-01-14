@@ -1,17 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
 
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
+  site: "https://babasama.com",
   integrations: [tailwind()],
-  adapter: node({
-    mode: 'standalone'
-  }),
   trailingSlash: "never",
   redirects: {},
   security: {
     checkOrigin: true
   },
+  prefetch: true,
+  output: "static",
+  compressHTML: true,
 });
