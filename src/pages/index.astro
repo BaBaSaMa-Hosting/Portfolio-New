@@ -29,6 +29,7 @@ import Layout from '@layouts/layout.astro';
             }
 
             const nextScreen = () => {
+                if (window.location.pathname !== "/") return;
                 const view_height = document.body.clientHeight;
 
                 gsap.timeline({ defaults: { duration: 1 } })

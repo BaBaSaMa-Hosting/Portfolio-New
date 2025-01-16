@@ -9,7 +9,7 @@ import Layout from '@layouts/layout.astro';
             All operation running cost within these 3 Months is covered.<br/>
         </p>
 
-        <div class="w-full grid grid-cols-2 gap-4 px-4">
+        <div class="w-full grid md:grid-cols-2 gap-4 px-4">
             <div class="w-full flex flex-col justify-start items-start">
                 <strong class="w-full mb-4">Your requirements</strong>
                 <ul class="w-full h-full border rounded-lg px-4 py-2">
@@ -97,7 +97,7 @@ import Layout from '@layouts/layout.astro';
 
                             <div class="website-option app-option hidden">
                                 <input type="radio" id="fastest-option" name="speed" value="" class="hidden peer purchase-option speed" required="" data-message="in 2 weeks" data-price="1600">
-                                <label for="fastest-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out">                           
+                                <label for="fastest-option" class="inline-flex items-center gap-2 border border-text text-text px-4 py-2 rounded-lg peer-checked:border-primary peer-checked:text-primary cursor-pointer duration-300 ease-in-out peer-disabled:text-gray-500 peer-disabled:border-gray-500">                           
                                     <i class="fa-duotone fa-solid fa-calendar-week"></i>
                                     <span>in 2 Weeks</span>
                                 </label>
@@ -115,7 +115,7 @@ import Layout from '@layouts/layout.astro';
                 <strong id="price" class="text-white font-roboto-condensed font-bold text-6xl">$0 SGD</strong>
                 <p>discuss further via</p>
 
-                <div class="w-full flex flex-row items-center justify-center gap-4">
+                <div class="w-full flex flex-col md:flex-row items-center justify-center gap-4">
                     <button id="telegram-link" class="group flex flex-row items-center gap-2 cursor-pointer">
                         <img src="/social-icons/telegram.png" alt="instagram" class="w-[30px] aspect-square"/>
                         <span class="font-ubuntu-mono group-hover:underline text-xl">@BaBaSaMa</span>
@@ -129,21 +129,21 @@ import Layout from '@layouts/layout.astro';
         </div>
     </div>
 
-    <script>
+    <script is:inline>
         const telegram_host = "https://t.me/babasama?";
         const email_host = "mailto:long@babasama.com?";
 
         document.addEventListener("astro:page-load", () => {
             if (window.location.pathname !== "/help") return;
 
-            const estimate_showbox = document.getElementById("estimate") as HTMLDivElement;
-            const app_option = document.getElementById("app-option") as HTMLInputElement;
-            const website_option = document.getElementById("website-option") as HTMLInputElement;
+            const estimate_showbox = document.getElementById("estimate");
+            const app_option = document.getElementById("app-option");
+            const website_option = document.getElementById("website-option");
             app_option.addEventListener("change", () => {
                 estimate_showbox.classList.add("hidden");
                 if (app_option.checked || website_option.checked) estimate_showbox.classList.remove("hidden");
 
-                const options = document.querySelectorAll(".app-option") as NodeListOf<HTMLDivElement>;
+                const options = document.querySelectorAll(".app-option");
                 options.forEach((element) => {
                     if (app_option.checked) {
                         element.classList.remove("hidden")
@@ -160,7 +160,7 @@ import Layout from '@layouts/layout.astro';
                 estimate_showbox.classList.add("hidden");
                 if (app_option.checked || website_option.checked) estimate_showbox.classList.remove("hidden");
 
-                const options = document.querySelectorAll(".website-option") as NodeListOf<HTMLDivElement>;
+                const options = document.querySelectorAll(".website-option");
                 options.forEach((element) => {
                     if (website_option.checked) {
                         element.classList.remove("hidden")
@@ -173,74 +173,85 @@ import Layout from '@layouts/layout.astro';
                 });
             });
 
-            const other_option = document.getElementById("other-option") as HTMLInputElement;
+            const other_option = document.getElementById("other-option");
             other_option.addEventListener("change", () => {
-                const textbox = document.getElementById("other-option-requirements") as HTMLTextAreaElement;
+                const textbox = document.getElementById("other-option-requirements");
                 textbox.classList.add("hidden")
                 if (other_option.checked) textbox.classList.remove("hidden");
             });
 
-            const price_display = document.getElementById("price") as HTMLSpanElement;
-            const purchase_options = document.querySelectorAll(".purchase-option") as NodeListOf<HTMLInputElement>;
+            const price_display = document.getElementById("price");
+            const purchase_options = document.querySelectorAll(".purchase-option");
             purchase_options.forEach((option) => {
                 option.addEventListener("change", () => {
                     let price = 0;
-                    const all_checked_purchase_selection = document.querySelectorAll(".purchase-option:checked") as NodeListOf<HTMLInputElement>;
+                    
+                    const all_checked_purchase_selection = document.querySelectorAll(".purchase-option:checked");
                     for (const selection of all_checked_purchase_selection) {
-                        price += +(selection.dataset.price as string)
+                        price += + Number(selection.dataset.price);
                     }
 
+                    const fastest_option = document.getElementById("fastest-option");
+                    fastest_option.removeAttribute("disabled");
+                    if (all_checked_purchase_selection.length > 4) {
+                        const fast_option = document.getElementById("fast-option");
+                        const faster_option = document.getElementById("faster-option") ;
+
+                        if (fastest_option.checked) setTimeout(() => { fast_option.click(); }, 300);
+                        fastest_option.setAttribute("disabled", "");
+                        if (app_option.checked && website_option.checked && faster_option.checked) price += 1000;
+                    }
                     price_display.innerText = `$${price} SGD`;
                 });
             });
 
-            const telegram_link = document.getElementById("telegram-link") as HTMLLinkElement;
+            const telegram_link = document.getElementById("telegram-link");
             telegram_link.addEventListener("click", () => {
                 let message = "I need an ";
-                let message_item: string[] = [];
-                const platform_checkbox = document.querySelectorAll(".purchase-option.platform:checked") as NodeListOf<HTMLInputElement>;
+                let message_item = [];
+                const platform_checkbox = document.querySelectorAll(".purchase-option.platform:checked");
                 for (const checkbox of platform_checkbox) {
-                    message_item.push(checkbox.dataset.message as string)
+                    message_item.push(checkbox.dataset.message)
                 }
 
                 message += `${message_item.join(" & ")}, with functionalities of `
                 message_item = [];
-                const function_checkbox = document.querySelectorAll(".purchase-option.functions:checked") as NodeListOf<HTMLInputElement>;
+                const function_checkbox = document.querySelectorAll(".purchase-option.functions:checked");
                 for (const checkbox of function_checkbox) {
-                    message_item.push(checkbox.dataset.message as string)
+                    message_item.push(checkbox.dataset.message)
                 }
 
                 message += `${message_item.join(", ")} and within `
-                const speed_checkbox = document.querySelector(".purchase-option.speed:checked") as HTMLInputElement; 
+                const speed_checkbox = document.querySelector(".purchase-option.speed:checked"); 
                 message += `${speed_checkbox.dataset.message}.`;
 
-                const other_requirements = document.getElementById("other-option-requirements") as HTMLTextAreaElement;
+                const other_requirements = document.getElementById("other-option-requirements");
                 message += ` other requirements: ${other_requirements.value}`;
 
                 window.open((`${telegram_host}text=${encodeURI(message)}`), "_blank")?.focus();
             });
 
-            const email_link = document.getElementById("email-link") as HTMLLinkElement;
+            const email_link = document.getElementById("email-link");
             email_link.addEventListener("click", () => {
                 let message = "I need an ";
-                let message_item: string[] = [];
-                const platform_checkbox = document.querySelectorAll(".purchase-option.platform:checked") as NodeListOf<HTMLInputElement>;
+                let message_item = [];
+                const platform_checkbox = document.querySelectorAll(".purchase-option.platform:checked");
                 for (const checkbox of platform_checkbox) {
-                    message_item.push(checkbox.dataset.message as string)
+                    message_item.push(checkbox.dataset.message)
                 }
 
                 message += `${message_item.join(" & ")}, with functionalities of `
                 message_item = [];
-                const function_checkbox = document.querySelectorAll(".purchase-option.functions:checked") as NodeListOf<HTMLInputElement>;
+                const function_checkbox = document.querySelectorAll(".purchase-option.functions:checked");
                 for (const checkbox of function_checkbox) {
-                    message_item.push(checkbox.dataset.message as string)
+                    message_item.push(checkbox.dataset.message)
                 }
 
                 message += `${message_item.join(", ")} and within `
-                const speed_checkbox = document.querySelector(".purchase-option.speed:checked") as HTMLInputElement; 
+                const speed_checkbox = document.querySelector(".purchase-option.speed:checked"); 
                 message += `${speed_checkbox.dataset.message}.`;
 
-                const other_requirements = document.getElementById("other-option-requirements") as HTMLTextAreaElement;
+                const other_requirements = document.getElementById("other-option-requirements");
                 if (other_requirements.value !== "") {
                     message += ` other requirements: ${other_requirements.value}`;
                 }

@@ -11,6 +11,7 @@ export default {
 				"montserrat": ['Montserrat'],
 				'ubuntu-mono': ['"Ubuntu Mono"'],
 				'roboto-condensed': ['"Roboto Condensed"'],
+				'noto-sans': ['Noto Sans']
 			},
 			colors: {
 				'background': "#0F110C",

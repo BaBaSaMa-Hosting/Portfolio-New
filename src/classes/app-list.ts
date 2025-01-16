@@ -10,6 +10,7 @@ export interface App {
     name: string,
     description: string,
     link: string,
+    github?: string,
     icon_location: ImageMetadata,
     display_types: DisplayType,
 }
@@ -35,6 +36,7 @@ export const apps: App[] = [
         name: "The Watch Street Journal",
         description: "News on the Apple Watch. Sourced from Google News.",
         link: "https://apps.apple.com/sg/app/the-watch-street-journal/id6450393866",
+        github: "https://github.com/Ju-Long/The-Watch-Street-Journal.git",
         icon_location: TWSJ_Icon,
         display_types: {
             watch: true,
