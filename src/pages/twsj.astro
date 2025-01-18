@@ -1,17 +1,12 @@
 ---
 import Content from "@layouts/content.astro";
-
-import { Image } from 'astro:assets';
-import TWSJ_design from '@assets/twsj/watchOS.png';
 ---
 <Content title="The Watch Street Journal" description="The Watch Street Journal Page">
     <div class="h-full display-image hidden" data-display="watch">
-        <Image src={TWSJ_design} alt="TWSJ watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/twsj/watchOS.png" alt="TWSJ watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <script>
-        document.addEventListener("astro:page-load", () => {
-            
-        });
+        document.addEventListener("astro:page-load", () => { });
     </script>
 </Content>

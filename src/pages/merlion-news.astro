@@ -1,26 +1,20 @@
 ---
 import Content from "@layouts/content.astro";
-
-import { Image } from 'astro:assets';
-import Merlion_News_iOS from '@assets/merlion-news/iOS.png';
-import Merlion_News_iPadOS from '@assets/merlion-news/iPadOS.png';
-import Merlion_News_macOS from '@assets/merlion-news/macOS.png';
 ---
 <Content title="Merlion News" description="Merlion News Page">
     <div class="h-full display-image hidden" data-display="mobile">
-        <Image src={Merlion_News_iOS} alt="Merlion News iOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/merlion-news/iOS.png" alt="Merlion News iOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <div class="h-full display-image hidden" data-display="tablet">
-        <Image src={Merlion_News_iPadOS} alt="Merlion News iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/merlion-news/iPadOS.png" alt="Merlion News iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
     
     <div class="h-full display-image hidden" data-display="desktop">
-        <Image src={Merlion_News_macOS} alt="Merlion News macOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/merlion-news/macOS.png" alt="Merlion News macOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <script>
-        document.addEventListener("astro:page-load", () => {
-        });
+        document.addEventListener("astro:page-load", () => { });
     </script>
 </Content>

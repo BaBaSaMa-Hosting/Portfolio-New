@@ -52,7 +52,7 @@ import profileImage from '@assets/profile.png';
 		<ClientRouter/>
 	</head>
 	<body class="bg-background relative font-montserrat text-white overflow-y-auto overflow-x-hidden">
-		<main class="w-screen min-h-[100dvh] flex flex-col items-start justify-between p-4 gap-4">
+		<main class="w-screen min-h-[100dvh] flex flex-col items-start justify-between p-4 gap-4 sticky">
 			<div id="header" class="w-full flex flex-row-reverse items-center justify-between">
 				{
 					help &&
@@ -73,7 +73,7 @@ import profileImage from '@assets/profile.png';
 
 			<slot/>
 
-			<div id="footer" class="w-full flex flex-row-reverse justify-between items-end">
+			<div id="footer" class="w-full flex flex-row-reverse justify-between items-end sticky">
 				<div id="profile-tab" class="relative flex flex-row-reverse items-center gap-6 py-2 px-4">
 					<div id="profile-background" class="profile-bg-pre"></div>
 
@@ -134,8 +134,12 @@ import profileImage from '@assets/profile.png';
 			}
 
         	import { gsap } from "gsap";
+			import { ScrollTrigger } from "gsap/ScrollTrigger";
+			import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 			document.addEventListener("astro:page-load", () => {
+				gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
+				
 				const more_down = document.getElementById('more-down');
 				const more_icon = document.getElementById('more-down-icon')
 				more_down?.addEventListener('mouseover', () => {

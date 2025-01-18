@@ -1,33 +1,24 @@
 ---
 import Content from "@layouts/content.astro";
-
-import TravelSG_watchOS_design from '@assets/travelsg/watchOS.png';
-import TravelSG_iOS_design from '@assets/travelsg/iOS.png';
-import TravelSG_iPadOS_design from '@assets/travelsg/iPadOS.png';
-import TravelSG_widget_design from '@assets/travelsg/widgets.png';
-
-import { Image } from 'astro:assets';
 ---
 <Content title="TravelSG" description="TravelSG Page">
     <div class="h-full display-image hidden" data-display="watch">
-        <Image src={TravelSG_watchOS_design} alt="TravelSG watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/travelsg/watchOS.png" alt="TravelSG watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <div class="h-full display-image hidden" data-display="mobile">
-        <Image src={TravelSG_iOS_design} alt="TravelSG iOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/travelsg/iOS.png" alt="TravelSG iOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <div class="h-full display-image hidden" data-display="tablet">
-        <Image src={TravelSG_iPadOS_design} alt="TravelSG iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/travelsg/iPadOS.png" alt="TravelSG iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <div class="h-full display-image hidden" data-display="widget">
-        <Image src={TravelSG_widget_design} alt="TravelSG widget" class="h-full aspect-auto object-contain inner-shadow"/>
+        <img src="/assets/travelsg/widgets.png" alt="TravelSG widget" class="h-full aspect-auto object-contain inner-shadow"/>
     </div>
 
     <script>
-        document.addEventListener("astro:page-load", () => {
-            
-        });
+        document.addEventListener("astro:page-load", () => { });
     </script>
 </Content>

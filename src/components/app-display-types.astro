@@ -1,17 +1,19 @@
 ---
+import { type App } from '@classes/app-list';
 import type { DisplayType } from '@classes/display-type'
 
 interface Props {
-    display_type: DisplayType
+    display_type: DisplayType,
+    app: App
 }
 
-const { display_type } = Astro.props;
+const { display_type, app } = Astro.props;
 ---
 <div class="flex flex-row md:flex-col items-center justify-center gap-4">
     {
         display_type.watch &&
         <div>
-            <input type="radio" name="display-style" id="watch" class="hidden peer display-style"/>
+            <input type="radio" name="display-style" id="watch" class="hidden peer display-style" data-app={app.page}/>
             <label for="watch" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-watch-apple fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
@@ -22,7 +24,7 @@ const { display_type } = Astro.props;
     {
         display_type.mobile &&
         <div>
-            <input type="radio" name="display-style" id="mobile" class="hidden peer display-style"/>
+            <input type="radio" name="display-style" id="mobile" class="hidden peer display-style" data-app={app.page}/>
             <label for="mobile" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-mobile-button fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
@@ -33,7 +35,7 @@ const { display_type } = Astro.props;
     {
         display_type.tablet && 
         <div>
-            <input type="radio" name="display-style" id="tablet" class="hidden peer display-style"/>
+            <input type="radio" name="display-style" id="tablet" class="hidden peer display-style" data-app={app.page}/>
             <label for="tablet" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-tablet fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
@@ -44,7 +46,7 @@ const { display_type } = Astro.props;
     {
         display_type.desktop && 
         <div>
-            <input type="radio" name="display-style" id="desktop" class="hidden peer display-style"/>
+            <input type="radio" name="display-style" id="desktop" class="hidden peer display-style" data-app={app.page}/>
             <label for="desktop" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-desktop fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
@@ -55,7 +57,7 @@ const { display_type } = Astro.props;
     {
         display_type.web && 
         <div>
-            <input type="radio" name="display-style" id="website" class="hidden peer display-style"/>
+            <input type="radio" name="display-style" id="website" class="hidden peer display-style" data-app={app.page}/>
             <label for="website" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-browser fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
@@ -66,7 +68,7 @@ const { display_type } = Astro.props;
     {
         display_type.widget &&
         <div>
-            <input type="radio" name="display-style" id="widget" class="hidden peer display-style"/>
+            <input type="radio" name="display-style" id="widget" class="hidden peer display-style" data-app={app.page}/>
             <label for="widget" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-grid-2 fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
