@@ -1,0 +1,50 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+const { title, description } = Astro.props;
+const link = Astro.request.url;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content={Astro.generator} />
+
+		<link rel="sitemap" href="/sitemap-index.xml">
+		<link rel="manifest" href="/manifest.json">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://kit.fontawesome.com/89ef39a558.css" crossorigin="anonymous">
+
+		<style lang="sass"/>
+		
+		<title>BaBaSaMa - {title}</title>
+	
+		<meta property="title" content={`BaBaSaMa - ${title}`}>
+		<meta property="description" content={description}>
+		<meta property="og:title" content={`BaBaSaMa - ${title}`}>
+		<meta property="og:description" content={description}>
+		<meta property="og:site_name" content=`BaBaSaMa`>
+		<meta property="og:type" content="website">
+		<meta property="og:website" content={link}>
+		<meta property="og:url" content={link}>
+		<meta property="og:locale" content="en_SG">
+		
+		<link rel="icon" href="profile.png">
+		<meta property="og:image" content="profile.png">
+		<meta property="og:image:width" content="1024">
+		<meta property="og:image:height" content="1024">
+		<meta property="twitter:card" content="BaBaSaMa">
+	
+		<ClientRouter/>
+	</head>
+	<body class="w-screen bg-background font-montserrat text-white overflow-y-auto overflow-x-hidden flex items-center justify-center">
+        <div class="prose prose-p:text-white prose-headings:text-text prose-headings:border-b prose-p:font-ubuntu-mono prose-p:ps-4 prose-a:text-secondary hover:prose-a:text-primary duration-300 ease-in-out py-12">
+			<slot/>
+		</div>
+	</body>
+</html>
