@@ -1,49 +1,52 @@
 ---
-import Layout from '@layouts/layout.astro';
-import AppIcon from '@components/app-icon.astro';
+import { ClientRouter } from 'astro:transitions';
 
-import { apps, type App } from '@classes/app-list';
+// interface Props {
+// 	title: string, 
+// 	description: string,
+// }
+
+// const { title, description } = Astro.props;
+const link = Astro.request.url;
+
+import { Image } from "astro:assets";
+import profileImage from '@assets/profile.png';
+import Dock from '@components/dock.astro';
 ---
-<Layout title="Home" description="Home Page" prev={false} next={false}>
-    <div class="w-full h-[100dvh] flex flex-col items-center justify-center gap-8">
-        <strong id="main-text" class="font-montserrat font-semibold text-4xl text-text text-center">Hello, I Make Software</strong>
-        
-        <div class="flex flex-col items-center justify-center gap-2">
-            <i class="fa-thin fa-computer-mouse-scrollwheel fa-2x"></i>
-            <span>Scroll for More</span>
-        </div>
-    </div>
-    {
-        apps.map((app) => (
-        <div class="w-full h-[100dvh] flex flex-col md:grid md:grid-cols-3 gap-4">
-            <AppIcon app={app}/>
-    
-            <div id="content-body" class="relative w-full h-full flex flex-col col-span-2">
-                <div class="h-full display-image hidden" data-display="watch" data-app="/travelsg">
-                    <img src="/assets/travelsg/watchOS.png" alt="TravelSG watchOS" class="h-full aspect-auto object-contain inner-shadow"/>
-                </div>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content={Astro.generator} />
 
-                <div class="h-full display-image hidden" data-display="mobile" data-app="/travelsg">
-                    <img src="/assets/travelsg/iOS.png" alt="TravelSG iOS" class="h-full aspect-auto object-contain inner-shadow"/>
-                </div>
+		<link rel="sitemap" href="/sitemap-index.xml">
+		<link rel="manifest" href="/manifest.json">
 
-                <div class="h-full display-image hidden" data-display="tablet" data-app="/travelsg">
-                    <img src="/assets/travelsg/iPadOS.png" alt="TravelSG iPadOS" class="h-full aspect-auto object-contain inner-shadow"/>
-                </div>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://kit.fontawesome.com/89ef39a558.css" crossorigin="anonymous">
 
-                <div class="h-full display-image hidden" data-display="widget" data-app="/travelsg">
-                    <img src="/assets/travelsg/widgets.png" alt="TravelSG widget" class="h-full aspect-auto object-contain inner-shadow"/>
-                </div>
-            </div>
-        </div>
-        ))
-    }
+		<style lang="sass"/>
+		
+		<ClientRouter/>
+	</head>
+	<body class="bg-background relative font-montserrat text-white overflow-y-auto overflow-x-hidden">
+		<main class="w-screen min-h-[100dvh] flex flex-col items-start justify-between p-4 gap-4 sticky">
+
+		</main>
+
+        <footer id="dock" class="fixed bottom-0 w-screen mb-4">
+            <Dock/>
+        </footer>
 
 
-    <script>
-        document.addEventListener("astro:page-load", () => {
-            if (window.location.pathname !== "/test") return;
-            
-        });
-    </script>
-</Layout>
+        <script>
+            document.addEventListener("astro:page-load", () => {
+                if (window.location.pathname !== "/test") return;
+                
+            });
+        </script>
+	</body>
+</html>

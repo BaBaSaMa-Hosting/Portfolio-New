@@ -1,0 +1,26 @@
+---
+import { apps } from '@classes/app-list';
+import Content from '@layouts/content.astro';
+
+export async function getStaticPaths() {
+    return apps.map((app) => {
+        const page = app.page;
+
+        return {
+            params: { page },
+            props: { app },
+        };
+    });
+}
+
+const { app } = Astro.props;
+---
+<Content app={app}>
+    {
+        Object.entries(app.display_types).map((object) => (
+            <div class="w-full display-image hidden flex items-center justify-center" data-display={object[0]}>
+                <img src={object[1]} alt={`Merlion News ${object[0]}`} class="w-[80%] aspect-auto object-contain inner-shadow"/>
+            </div>
+        ))
+    }
+</Content>

@@ -1,49 +1,30 @@
 ---
 import Layout from '@layouts/layout.astro';
 ---
-<Layout title="Home" description="Home Page" prev={false}>
-    <div class="w-full h-full flex flex-col justify-start items-center">
+<Layout title="Home" description="Home Page">
+    <div class="w-full h-full flex items-center justify-center">
         <strong id="main-text" class="font-montserrat font-semibold text-4xl text-text text-center">Hello, I Make Software</strong>
     </div>
 
     <script>
-        import { navigate } from 'astro:transitions/client';
         import { gsap } from "gsap";
+        import { selected_app } from '@src/store';
+        import { navigate } from "astro:transitions/client";
 
         document.addEventListener("astro:page-load", () => {
             if (window.location.pathname !== "/") return;
+            const pathname = window.location.pathname;
 
-            const load_timeline = gsap.timeline({ defaults: { duration: 1 } });
-            const load = () => {
-                const screen_height = document.body.clientHeight;
-                load_timeline.from("#main-text", { y: -screen_height, duration: 1 });
-            }
-            load();
+            const screen_height = document.body.scrollHeight;
+            gsap.timeline({ defaults: { duration: 1 } }).from("#main-text", { y: -screen_height, duration: 1 });
 
-            window.onscroll = () => {
-                if (load_timeline.progress() !== 1) return;
-                const scroll_height = document.body.scrollHeight;
-                const screen_height = window.innerHeight;
-                if ((window.scrollY + screen_height) > scroll_height) 
-                    nextScreen();
-            }
-
-            const nextScreen = () => {
+            selected_app.listen((value) => {
                 if (window.location.pathname !== "/") return;
+                if (value === pathname) return;
+
                 const view_height = document.body.clientHeight;
-
-                gsap.timeline({ defaults: { duration: 1 } })
-                .to("#main-text", { y: -view_height }, 0)
-                
-                setTimeout(() => {
-                    navigate('/travelsg');
-                }, 500);
-            }
-
-			const more_down = document.getElementById('more-down') as HTMLDivElement;
-            more_down.addEventListener("click", (event) => {
-                nextScreen();
-            })
+                gsap.timeline({ defaults: { duration: 1 } }).to("#main-text", { y: -view_height }, 0).then(() => { navigate(`/${value}`); });
+            });
         });
     </script>
 </Layout>

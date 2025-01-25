@@ -4,10 +4,10 @@ import Layout from '@layouts/layout.astro';
 import { Image } from 'astro:assets';
 import UserImage from '@assets/user.png';
 ---
-<Layout title="About Me" description="About Me Page" prev={false} next={false}>
-    <div class="w-full h-full grid md:grid-cols-2 py-4">
-        <Image src={UserImage} alt="TravelSG" class="w-full rounded-lg border-white border-4 aspect-auto object-contain"/>
-        <div class="w-full flex flex-col items-center justify-center p-4 text-center gap-4">
+<Layout title="About Me" description="About Me Page">
+    <div id="about-me" class="w-full h-full grid md:grid-cols-2 p-4">
+        <Image src={UserImage} alt="Image of Me" class="w-full rounded-lg border-white border-4 aspect-auto object-contain"/>
+        <div class="w-full flex flex-col items-center justify-center p-4 text-center gap-4 pb-[100px]">
             <strong>Hi, my name is Ju Long.</strong>
             <p>I began my journey as a software developer while completing my diploma. Throughout the years, I have accquired many programming skills, knowledge and experience in making ideas into softwares.</p>
             <p>Currently am building a platform for me to enpower your business idea into a software product.</p>
@@ -28,8 +28,22 @@ import UserImage from '@assets/user.png';
     </div>
 
     <script>
+        import { selected_app } from "@src/store";
+        import { navigate } from "astro:transitions/client";
+        import { gsap } from "gsap/gsap-core";
+
         document.addEventListener("astro:page-load", () => {
-            if (window.location.pathname !== "/about") return;
+            const pathname = window.location.pathname;
+            if (pathname !== "/about") return;
+
+            var screen_height = document.body.scrollHeight;
+            gsap.timeline({ defaults: { duration: 2 } }).from("#about-me", { y: -screen_height }, 0);
+
+            selected_app.listen((value) => {
+                if (pathname !== "/about") return;
+
+                gsap.timeline({ defaults: { duration: 2 } }).to("#about-me", { y: -screen_height }, 0).then(() => { navigate(`/${value}`); });
+            })
         });
     </script>
 </Layout>

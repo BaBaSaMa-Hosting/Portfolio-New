@@ -1,8 +1,8 @@
 export interface DisplayType {
-    watch: boolean,
-    mobile: boolean,
-    tablet: boolean,
-    desktop: boolean,
-    web: boolean,
-    widget: boolean,
+    watch?: string,
+    mobile?: string,
+    tablet?: string,
+    desktop?: string,
+    web?: string,
+    widget?: string,
 }

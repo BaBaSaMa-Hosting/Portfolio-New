@@ -1,0 +1,47 @@
+---
+import { apps } from "@classes/app-list";
+import { Image } from "astro:assets";
+---
+<div class="relative w-full flex flex-row items-end justify-center rounded-lg px-4 py-2 gap-4">
+    {
+        apps.map((app) => (
+            <div class="relative z-20">
+                <input type="radio" name="selected-app" id={app.page} class="hidden peer"/>
+                <label for={app.page} class="group flex flex-col items-center justify-center">
+                    <Image src={app.icon_location} alt={app.name} class="peer w-[50px] h-[50px] aspect-square object-contain rounded-lg border border-white hover:w-[100px] hover:h-[100px] group-peer-checked:w-[80px] group-peer-checked:h-[80px] md:group-peer-checked:w-[100px] md:group-peer-checked:h-[100px] duration-300 ease-in-out"/>
+                    <strong class="hidden md:opacity-0 peer-hover:opacity-100 group-peer-checked:opacity-100 duration-300 ease-in-out">{ app.name }</strong>
+                </label>
+            </div>
+        ))
+    }
+
+    <div class="bg-white opacity-50 absolute bottom-0 z-10 w-[90%] md:w-[65%] h-[60px] rounded-lg"></div>
+</div>
+
+<script>
+    import { selected_app } from '@src/store';
+
+    document.addEventListener("astro:page-load", () => {
+        const pathname = window.location.pathname;
+
+        const apps_selection = document.querySelectorAll("input[name='selected-app']") as NodeListOf<HTMLInputElement>;
+        for (const app_selection of apps_selection) {
+            if (pathname === `/${app_selection.id}`) {
+                app_selection.click();
+            }
+
+            app_selection.addEventListener("change", () => {
+                selected_app.set(app_selection.id);
+            });
+        }
+
+        selected_app.listen((value) => {
+            if (!(value === "/" || value === "/about")) return;
+            console.log("Selected App:", value);
+            apps_selection.forEach((app_selection) => {
+                app_selection.checked = false;
+                console.log(app_selection.id, app_selection.checked);
+            });
+        });
+    });
+</script>

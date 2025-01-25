@@ -40,6 +40,6 @@ export default {
 				return result.replace(/&(\S+)/, ":merge(.peer)$1 ~ .group &");
 			  });
 			}
-		  }),
+		}),
 	]
 }

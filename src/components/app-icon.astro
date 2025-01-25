@@ -11,20 +11,25 @@ interface Props {
 
 const { app } = Astro.props
 ---
-<div id="icon_name"class="w-full h-full flex flex-col md:flex-row items-center justify-center gap-4">
-    <div class="w-full h-full flex flex-col items-center justify-center gap-4 md:gap-8">
-        <Image src={app.icon_location} alt={app.name} class="w-[120px] h-[120px] rounded-lg border-white border-4 aspect-square object-contain" />
-        <strong class="font-roboto-condensed font-medium text-3xl text-text">{app.name}</strong>
-        <p class="font-ubuntu-mono font-normal text-text text-lg text-center">{app.description}</p>
-
-        <div class="w-full flex flex-row md:flex-col items-center justify-center gap-4">
-            <a href={app.link} target="_blank">
-                <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
-            </a>
-            {
-                app.github &&
-                <GithubButton link={app.github}/>
-            }
+<div class="w-full h-full flex flex-col md:flex-row items-center justify-center gap-4">
+    <div class="w-full h-full flex flex-row md:flex-col items-center justify-center gap-4 md:gap-8">
+        <div class="flex flex-col items-center justify-center gap-4 md:gap-8">
+            <Image src={app.icon_location} alt={app.name} class="w-[120px] h-[120px] rounded-lg border-white border-4 aspect-square object-contain" />
+            <strong class="w-[60%] md:w-full font-roboto-condensed font-medium text-xl md:text-3xl text-text text-center text-wrap">{app.name}</strong>
+        </div>
+       
+        <div class="w-min flex flex-col items-start md:items-center justify-center gap-4 md:gap-8">
+            <p class="w-[40vw] font-ubuntu-mono font-normal text-text text-lg text-start md:text-center">{app.description}</p>
+    
+            <div class="flex flex-col md:flex-row lg:flex-col items-start md:items-center justify-start md:justify-center gap-4">
+                <a href={app.link} target="_blank" data-astro-reload>
+                    <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
+                </a>
+                {
+                    app.github &&
+                    <GithubButton link={app.github}/>
+                }
+            </div>
         </div>
     </div>
     <AppDisplayTypes display_type={app.display_types} app={app}/>

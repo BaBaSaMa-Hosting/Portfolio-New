@@ -3,17 +3,15 @@ import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string, 
-	description: string,
-	prev?: boolean,
-	next?: boolean,
-	help?: boolean,
+	description: string
 }
 
-const { title, description, prev = true, next = true, help = true } = Astro.props;
+const { title, description } = Astro.props;
 const link = Astro.request.url;
 
 import { Image } from "astro:assets";
 import profileImage from '@assets/profile.png';
+import Dock from '@components/dock.astro';
 ---
 <!doctype html>
 <html lang="en">
@@ -53,74 +51,34 @@ import profileImage from '@assets/profile.png';
 		<ClientRouter/>
 	</head>
 	<body class="bg-background relative font-montserrat text-white overflow-y-auto overflow-x-hidden">
-		<main class="w-screen min-h-[100dvh] flex flex-col items-start justify-between p-4 gap-4 sticky">
-			<div id="header" class="w-full flex flex-row-reverse items-center justify-between">
-				{
-					help &&
-					<a href="/help" class="bg-accent font-montserrat font-medium text-lg rounded-lg px-4 py-2">Need An App?</a>
-				}
-				{
-					prev &&
-					<div id="back-up" class="flex flex-col-reverse items-center justify-center gap-4 text-secondary hover:text-primary duration-300 ease-in-out cursor-pointer">
-						back
-						<i id="back-up-icon" class="fa-thin fa-arrow-up-long fa-2x"></i>
-					</div>
-				}
-				{
-					help &&
-					<button class="hidden md:block bg-accent font-montserrat font-medium text-lg rounded-lg px-4 py-2 invisible">Need An App?</button>
-				}
-			</div>
+		<header class="w-full flex items-start justify-start p-4" transition:persist>
+			<div id="profile-tab" class="relative flex flex-row items-center gap-6 py-2 px-4">
+				<div id="profile-background" class="profile-bg-pre"></div>
 
-			<slot/>
-
-			<div id="footer" class="w-full flex flex-row-reverse justify-between items-end sticky">
-				<div id="profile-tab" class="relative flex flex-row-reverse items-center gap-6 py-2 px-4">
-					<div id="profile-background" class="profile-bg-pre"></div>
-
-					<a href="/about">
-						<Image src={profileImage} alt="Me" class="rounded-full border-white border-[2px] h-[50px] aspect-square w-auto"/>
-					</a>
-
-					<a id="instagram-icon" href="https://www.instagram.com/babasama._?igsh=MWd5d2NqaHVzZnhlMA%3D%3D&utm_source=qr" target="_blank" class="opacity-0 duration-300 ease-in-out">
-						<img src="/social-icons/instagram.png" alt="instagram" class="w-[40px] aspect-square"/>
-					</a>
-
-					<a id="telegram-icon" href="https://t.me/babasama" target="_blank" class="opacity-0 duration-300 ease-in-out">
-						<img src="/social-icons/telegram.png" alt="instagram" class="w-[40px] aspect-square"/>
-					</a>
-
-					<a id="envelope-icon" href="mailto:long@babasama.com" target="_blank" class="opacity-0 duration-300 ease-in-out">
-						<i class="fa-regular fa-envelope fa-2x"></i>
-					</a>
-				</div>
-
-				{
-					next &&
-					<div id="more-down" class="flex flex-col items-center justify-center gap-4 text-secondary hover:text-primary duration-300 ease-in-out cursor-pointer">
-						More
-						<i id="more-down-icon" class="fa-thin fa-arrow-down-long fa-2x"></i>
-					</div>
-				}
-
-				<div class="hidden md:flex flex-row rounded-lg py-2 px-4 gap-6 invisible">
+				<button id="visit-about" type="button">
 					<Image src={profileImage} alt="Me" class="rounded-full border-white border-[2px] h-[50px] aspect-square w-auto"/>
+				</button>
 
-					<button class="">
-						<img src="/social-icons/instagram.png" alt="instagram" class="w-[40px] aspect-square"/>
-					</button>
+				<a id="instagram-icon" href="https://www.instagram.com/babasama._?igsh=MWd5d2NqaHVzZnhlMA%3D%3D&utm_source=qr" target="_blank" class="opacity-0 duration-300 ease-in-out">
+					<img src="/social-icons/instagram.png" alt="instagram" class="w-[40px] aspect-square"/>
+				</a>
 
-					<button class="">
-						<img src="/social-icons/telegram.png" alt="instagram" class="w-[40px] aspect-square"/>
-					</button>
+				<a id="telegram-icon" href="https://t.me/babasama" target="_blank" class="opacity-0 duration-300 ease-in-out">
+					<img src="/social-icons/telegram.png" alt="instagram" class="w-[40px] aspect-square"/>
+				</a>
 
-					<button class="">
-						<i class="fa-regular fa-envelope fa-2x"></i>
-					</button>
-				</div>
+				<a id="envelope-icon" href="mailto:long@babasama.com" target="_blank" class="opacity-0 duration-300 ease-in-out">
+					<i class="fa-regular fa-envelope fa-2x"></i>
+				</a>
 			</div>
+		</header>
+		<main class="w-screen h-[calc(100dvh-200px)]">
+			<slot/>
 		</main>
 
+        <nav id="dock" class="fixed bottom-0 w-screen mb-4" transition:persist>
+            <Dock/>
+        </nav>
 		<script>
 			declare global {
 				interface Window {
@@ -137,6 +95,8 @@ import profileImage from '@assets/profile.png';
         	import { gsap } from "gsap";
 			import { ScrollTrigger } from "gsap/ScrollTrigger";
 			import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+			import { navigate } from 'astro:transitions/client';
+			import { selected_app } from "@src/store";
 
 			document.addEventListener("astro:page-load", () => {
 				gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
@@ -194,13 +154,18 @@ import profileImage from '@assets/profile.png';
 						timeline_bg.reverse();
 					}
 				});
+
+				const visit_about = document.getElementById('visit-about') as HTMLButtonElement;
+				visit_about.addEventListener('click', () => {
+					selected_app.set('about');
+				});
 			});
 		</script>
 
 		<style>
 			#profile-background {
 				position: absolute;
-				right: 0;
+				left: 0;
 				top: 0;
 				z-index: -10;
 				width: 0;
