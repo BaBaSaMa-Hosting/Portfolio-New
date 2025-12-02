@@ -11,6 +11,7 @@ export interface App {
     name: string,
     description: string,
     link: string,
+    image: string,
     github?: string,
     icon_location: ImageMetadata,
     display_types: DisplayType,
@@ -22,6 +23,7 @@ export const apps: App[] = [
         name: "TravelSG",
         description: "Bus Arrival Tracker. Mainly featuring Live Activity for Bus Arrival.",
         link: "https://apps.apple.com/sg/app/travel-sg/id6444826465",
+        image: "/assets/travelsg/image.png",
         icon_location: TravelSG_Icon,
         display_types: {
             watch: "/assets/travelsg/watchOS.png",
@@ -35,6 +37,7 @@ export const apps: App[] = [
         name: "The Watch Street Journal",
         description: "News on the Apple Watch. Sourced from Google News.",
         link: "https://apps.apple.com/sg/app/the-watch-street-journal/id6450393866",
+        image: "/assets/twsj/image.png",
         github: "https://github.com/Ju-Long/The-Watch-Street-Journal.git",
         icon_location: TWSJ_Icon,
         display_types: {
@@ -46,6 +49,7 @@ export const apps: App[] = [
         name: "Merlion News",
         description: "News of Singapore. All in one app.",
         link: "https://apps.apple.com/sg/app/merlion-news/id6451491959",
+        image: "/assets/merlion-news/image.png",
         icon_location: Merlion_News_Icon,
         display_types: {
             mobile: "/assets/merlion-news/iOS.png",
@@ -58,6 +62,7 @@ export const apps: App[] = [
         name: "The Peach Studio",
         description: "Workout and Fitness. By The Peach Studio",
         link: "https://peachstudio.app/",
+        image: "/assets/peachstudio/Web.png",
         icon_location: PeachStudio_Icon,
         display_types: {
             web: "/assets/peachstudio/Web.png"

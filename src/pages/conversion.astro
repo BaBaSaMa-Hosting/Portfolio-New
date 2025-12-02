@@ -1,0 +1,54 @@
+---
+import Layout from '@layouts/layout.astro';
+
+import "filepond/dist/filepond.min.css";
+---
+<Layout title="Data Conversion" description="Data Conversion Page">
+    <div id="data-conversion" class="w-full h-full grid md:grid-cols-2 p-4">
+        <div id="file-input" class="h-full"></div>
+    </div>
+
+    <script>
+        import { selected_app } from "@src/store";
+        import { navigate } from "astro:transitions/client";
+        import { gsap } from "gsap/gsap-core";
+
+        import * as FilePond from 'filepond';
+        import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+        import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+
+        FilePond.registerPlugin(FilePondPluginFileValidateSize);
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
+
+        document.addEventListener("astro:page-load", () => {
+            const pathname = window.location.pathname;
+            if (pathname !== "/conversion") return;
+
+            const pond_element = document.getElementById("file-input") as HTMLDivElement;
+            const pond = FilePond.create(pond_element, { 
+                labelIdle: "Drop your file or Click for more options",
+                stylePanelLayout: 'integrated',
+                allowMultiple: false,
+                name: "input-file",
+                server: null,
+                instantUpload: false,
+                acceptedFileTypes: ["*/*"],
+            });
+
+            var screen_height = document.body.scrollHeight;
+            gsap.timeline({ defaults: { duration: 2 } }).from("#data-conversion", { y: -screen_height }, 0);
+
+            selected_app.listen((value) => {
+                if (pathname !== "/conversion") return;
+
+                gsap.timeline({ defaults: { duration: 2 } }).to("#data-conversion", { y: -screen_height }, 0).then(() => { navigate(`/${value}`); });
+            })
+        });
+    </script>
+
+    <style>
+        .filepond--panel-root {
+            background-color: #000 !important;
+        }
+    </style>
+</Layout>
