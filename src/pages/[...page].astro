@@ -18,8 +18,8 @@ const { app } = Astro.props;
 <Content app={app}>
     {
         Object.entries(app.display_types).map((object) => (
-            <div class="w-full display-image hidden flex items-center justify-center" data-display={object[0]}>
-                <img src={object[1]} alt={`Merlion News ${object[0]}`} class="w-[80%] aspect-auto object-contain inner-shadow"/>
+            <div class="w-full h-full display-image hidden flex items-center justify-center" data-display={object[0]}>
+                <img src={object[1]} alt={`${object[0]}`} class="w-[80%] aspect-auto object-contain inner-shadow"/>
             </div>
         ))
     }

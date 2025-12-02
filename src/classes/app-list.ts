@@ -4,6 +4,7 @@ import type { DisplayType } from './display-type';
 import TravelSG_Icon from '@assets/app-icons/travelsg.png';
 import TWSJ_Icon from '@assets/app-icons/twsj.png';
 import Merlion_News_Icon from '@assets/app-icons/merlion-news.png';
+import PeachStudio_Icon from '@assets/app-icons/the-peach-studio.png';
 
 export interface App {
     page: string,
@@ -50,6 +51,16 @@ export const apps: App[] = [
             mobile: "/assets/merlion-news/iOS.png",
             tablet: "/assets/merlion-news/iPadOS.png",
             desktop: "/assets/merlion-news/macOS.png",
+        } as DisplayType
+    },
+    {
+        page: "peach-studio",
+        name: "The Peach Studio",
+        description: "Workout and Fitness. By The Peach Studio",
+        link: "https://peachstudio.app/",
+        icon_location: PeachStudio_Icon,
+        display_types: {
+            web: "/assets/peachstudio/Web.png"
         } as DisplayType
     }
 ]

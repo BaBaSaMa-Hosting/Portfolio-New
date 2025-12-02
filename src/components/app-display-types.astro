@@ -57,8 +57,8 @@ const { display_type, app } = Astro.props;
     {
         display_type.web && 
         <div>
-            <input type="radio" name="display-style" id="website" class="hidden peer display-style" data-app={app.page}/>
-            <label for="website" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
+            <input type="radio" name="display-style" id="web" class="hidden peer display-style" data-app={app.page}/>
+            <label for="web" class="group flex flex-col items-center justify-center gap-2 cursor-pointer text-text peer-checked:text-primary duration-300 ease-in-out">
                 <i class="fa-duotone fa-thin fa-browser fa-3x"></i>
                 <span class="flex w-2 h-2 bg-primary rounded-full opacity-0 group-peer-checked:opacity-100 duration-300 ease-in-out"></span>
             </label>

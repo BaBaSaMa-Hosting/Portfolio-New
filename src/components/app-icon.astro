@@ -4,6 +4,7 @@ import { Image } from 'astro:assets'
 import { type App } from '@classes/app-list';
 import AppDisplayTypes from '@components/app-display-types.astro';
 import GithubButton from './github-button.astro';
+import WebButton from './web-button.astro';
 
 interface Props {
     app: App
@@ -22,9 +23,13 @@ const { app } = Astro.props
             <p class="w-[40vw] font-ubuntu-mono font-normal text-text text-lg text-start md:text-center">{app.description}</p>
     
             <div class="flex flex-col md:flex-row lg:flex-col items-start md:items-center justify-start md:justify-center gap-4">
-                <a href={app.link} target="_blank" data-astro-reload>
-                    <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
-                </a>
+                {
+                    Object.entries(app.display_types).some(([key, _]) => { return key === "mobile" || key === "tablet" || key === "desktop"  || key === "watch"}) ?
+                    <a href={app.link} target="_blank" data-astro-reload>
+                        <img src="/social-icons/app-store.svg" alt="App Store" class="h-[40px] aspect-auto" />
+                    </a> :
+                    <WebButton link={app.link}/>
+                }
                 {
                     app.github &&
                     <GithubButton link={app.github}/>

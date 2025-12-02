@@ -1,17 +1,19 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import { Image } from "astro:assets";
+
+import profileImage from '@assets/profile.png';
+import Dock from '@components/dock.astro';
+import type { DisplayType } from '@classes/display-type';
 
 interface Props {
 	title: string, 
-	description: string
+	description: string,
+	image?: string,
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 const link = Astro.request.url;
-
-import { Image } from "astro:assets";
-import profileImage from '@assets/profile.png';
-import Dock from '@components/dock.astro';
 ---
 <!doctype html>
 <html lang="en">
@@ -22,6 +24,7 @@ import Dock from '@components/dock.astro';
 
 		<link rel="sitemap" href="/sitemap-index.xml">
 		<link rel="manifest" href="/manifest.json">
+		<link rel="icon" href="profile.png">
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,9 +44,11 @@ import Dock from '@components/dock.astro';
 		<meta property="og:website" content={link}>
 		<meta property="og:url" content={link}>
 		<meta property="og:locale" content="en_SG">
-		
-		<link rel="icon" href="profile.png">
-		<meta property="og:image" content="profile.png">
+		{ 
+			image ?
+			<meta property="og:image" content={image}/> :
+			<meta property="og:image" content="profile.png"/>
+		}
 		<meta property="og:image:width" content="1024">
 		<meta property="og:image:height" content="1024">
 		<meta property="twitter:card" content="BaBaSaMa">
@@ -67,7 +72,7 @@ import Dock from '@components/dock.astro';
 					<img src="/social-icons/telegram.png" alt="instagram" class="w-[40px] aspect-square"/>
 				</a>
 
-				<a id="envelope-icon" href="mailto:long@babasama.com" target="_blank" class="opacity-0 duration-300 ease-in-out">
+				<a id="envelope-icon" href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x6c;&#x6f;&#x6e;&#x67;&#x40;&#x62;&#x61;&#x62;&#x61;&#x73;&#x61;&#x6d;&#x61;&#x2e;&#x63;&#x6f;&#x6d;" target="_blank" class="opacity-0 duration-300 ease-in-out">
 					<i class="fa-regular fa-envelope fa-2x"></i>
 				</a>
 			</div>
@@ -95,7 +100,6 @@ import Dock from '@components/dock.astro';
         	import { gsap } from "gsap";
 			import { ScrollTrigger } from "gsap/ScrollTrigger";
 			import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-			import { navigate } from 'astro:transitions/client';
 			import { selected_app } from "@src/store";
 
 			document.addEventListener("astro:page-load", () => {

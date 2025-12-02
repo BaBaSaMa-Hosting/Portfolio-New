@@ -2,11 +2,11 @@
 const { link } = Astro.props;
 ---
 
-<a href={link} target="_blank" class="bg-[#010409] rounded-lg flex flex-row items-center justify-center gap-2 px-2 py-1 text-white font-noto-sans font-medium border border-white">
+<a href={link} target="_blank" class="bg-[#010409] rounded-lg flex flex-row items-center justify-center gap-2 px-2.5 py-1 text-white font-noto-sans font-medium border border-white">
     <img src="/social-icons/github.png" alt="Github" class="w-5 aspect-auto object-contain">
 
-    <div class="flex flex-col items-start justify-center">
-        <span class="text-[0.5rem]">View it on</span> 
+    <div class="flex flex-col items-start justify-center tracking-wide">
+        <span class="text-[0.5rem] tracking-wider">View the code on</span> 
         Github
     </div>
 </a>
