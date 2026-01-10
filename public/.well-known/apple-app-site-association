@@ -2,7 +2,7 @@
   "applinks": {
       "details": [
            {
-             "appIDs": [ "com.BaBaSaMa.TravelSG", "com.BaBaSaMa.Merlion-News" ],
+             "appIDs": [ "5678544286.com.BaBaSaMa.TravelSG", "5678544286.com.BaBaSaMa.Merlion-News" ],
              "components": [
                {
                   "#": "no_universal_links",
@@ -24,6 +24,6 @@
        ]
    },
    "webcredentials": {
-      "apps": [ "com.BaBaSaMa.TravelSG", "com.BaBaSaMa.Merlion-News" ]
+      "apps": [ "5678544286.com.BaBaSaMa.TravelSG", "5678544286.com.BaBaSaMa.Merlion-News" ]
    }
 }
